@@ -27,7 +27,6 @@ export class PreguntadosComponent implements OnInit {
     }else{
       sessionStorage.clear();
       this.router.navigateByUrl("login");
-      Usuario.SetSaludo(`Usuario`);
     }
   }
 

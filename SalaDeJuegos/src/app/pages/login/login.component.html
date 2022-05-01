@@ -1,21 +1,22 @@
 <div class="container">
     <div class="m-1  row justify-content-center">
         <div class="bg-light shadow p-5 m-3 rounded col-lg-4 col-md-6 col-sm-8 ">
-            <h2 class="mt-1 font__bienvenido">Bienvenido</h2>
+            <h2 class="mt-1 text-center font__bienvenido">Bienvenido</h2>
             <div class="row justify-content-center">       
                 <img class="col-xxl-3 col-lg-3 col-6 align-center m-1" src="../../../assets/images/login.svg" alt="login">
-                <input type="text" class="m-3 form-control" name="usuario" placeholder="Email Address" [(ngModel)]="usuario" required="" autofocus="" />
+                <input type="text" class="m-3 form-control" name="usuario" placeholder="Email Address" [(ngModel)]="email" required="" autofocus="" />
                 <input type="password" class="m-3 form-control" name="password" placeholder="Password" [(ngModel)]="password" required=""/>      
                 <label class="checkbox">
                 <input class="m-3" type="checkbox" value="recuerdame" id="recuerdame" name="recuerdame">Recordar
                 </label>
-                <button class="m-1 btn btn-lg btn-outline-primary btn-block" type="button" (click)="LogIn()">Login</button> 
-                <span id="msj-error" class="mt-5 align-item-center badge bg-danger text-ligth msj-block">Acceso Denegado</span>   
+                <button class="m-1 btn btn-lg btn-outline-primary btn-block" type="button" (click)="ingresar()">Login</button>
+                <button class="m-1 btn btn-lg btn-danger btn-block" type="button" (click)="ingresarConGoogle()">Login Google</button> 
+                <label> Aun no tienes cuenta? <span class="btn align-item-center badge bg-success text-ligth msj-block" (click)="registrarse()"> Registrate</span></label>
+                <span *ngIf="msgError" id="msj-error" class="mt-5 align-item-center badge bg-warning text-ligth msj-block">Acceso Denegado</span>   
             </div>          
         </div>
 
     </div>
-
 </div>
 
 

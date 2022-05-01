@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Usuario } from 'src/app/entidades/usuario';
+import { AuthFirebaseService } from 'src/app/service/authfirebase.service';
+
 
 
 @Component({
@@ -12,13 +14,17 @@ import { Usuario } from 'src/app/entidades/usuario';
 export class LoginComponent implements OnInit {
 
   public router:Router;
-  public usuario:string;
+  public email:string;
   public password:string;
-  constructor(router:Router) 
+  public msgError:boolean;
+
+  constructor(router:Router,private firebaseService:AuthFirebaseService) 
   { 
+    this.msgError = false;
     this.router=router;
-    this.usuario="";
+    this.email="";
     this.password= "";
+
   }
 
   ngOnInit(): void {
@@ -31,29 +37,74 @@ export class LoginComponent implements OnInit {
     }else{
       sessionStorage.clear();
       this.router.navigateByUrl("login");
-      Usuario.SetSaludo(`Usuario`);
+     
     }
   }
 
-  LogIn():void{
+  ingresar():void{
 
-    const usuario:Usuario = new Usuario(this.usuario, this.password);
+    const usuario:Usuario = new Usuario(this.email, this.password);
+    this.firebaseService.login(usuario)
+    .then(res=>{
+      if(res==null){
+        this.msgError=true;
+        setTimeout(() => {
+          this.msgError = false;
+          this.router.navigateByUrl("login");
+        }, 1000);
+      }else{
+        console.log(`se ingreso ${res}`);
+        sessionStorage.setItem("log",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
+        this.router.navigateByUrl("home");
+      }
 
-    if(Usuario.Loguear(usuario)){
-      sessionStorage.setItem("log",JSON.stringify({usuario:this.usuario, status:"ok", date:moment()}));
-      Usuario.SetSaludo(`Bienvenido ${this.usuario}`);
-      this.router.navigateByUrl("home");
-    }else{
-      const msj:any = document.querySelector("#msj-error");
-      msj.classList.remove("msj-block");
-      setTimeout(() => {
-       msj.classList.add("msj-block");
-        this.router.navigateByUrl("login");
-      }, 1000);
-    }
+    });
 
+
+    // const listaUsuarios:Array<any>= new Array({usuario:"admin",password:"12345"},{usuario:"user",password:"12345"});
+
+    // const usuario:Usuario = new Usuario(this.email, this.password);
+
+    // if(Usuario.Loguear(usuario, listaUsuarios)){
+    //   sessionStorage.setItem("log",JSON.stringify({usuario:this.email, status:"ok", date:moment()}));
+    //   Usuario.SetSaludo(`Bienvenido ${this.email}`);
+    //   this.router.navigateByUrl("home");
+    // }else{
+    //   this.msgError=true;
+    //   setTimeout(() => {
+    //     this.msgError = false;
+    //     this.router.navigateByUrl("login");
+    //   }, 1000);
+    // }
+  }
+
+  
+  ingresarConGoogle():void{ 
+
+    this.firebaseService.loginConGoogle()
+    .then(res=>{
+      if(res==null){
+        this.msgError=true;
+        setTimeout(() => {
+          this.msgError = false;
+          this.router.navigateByUrl("login");
+        }, 1000);
+      }else{
+        console.log(`se ingreso con google ${res}`);
+        sessionStorage.setItem("log",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
+        this.router.navigateByUrl("home");
+      }
+
+    });
 
   }
+  registrarse(){
+    const usuario:Usuario = new Usuario(this.email, this.password);
+    this.firebaseService.registrar(usuario).then(res=> `usuario registrado ${res}`);
+  }
+
+
+
 
 
 

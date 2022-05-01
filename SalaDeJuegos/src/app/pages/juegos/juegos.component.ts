@@ -26,7 +26,6 @@ export class JuegosComponent implements OnInit {
     }else{
       sessionStorage.clear();
       this.router.navigateByUrl("login");
-      Usuario.SetSaludo(`Usuario`);
     }
   }
 

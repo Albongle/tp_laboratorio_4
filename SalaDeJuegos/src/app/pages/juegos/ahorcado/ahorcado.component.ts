@@ -27,7 +27,7 @@ export class AhorcadoComponent implements OnInit {
     }else{
       sessionStorage.clear();
       this.router.navigateByUrl("login");
-      Usuario.SetSaludo(`Usuario`);
+    
     }
   }
 

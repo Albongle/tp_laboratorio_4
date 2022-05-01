@@ -26,7 +26,7 @@ export class NosotrosComponent implements OnInit {
     }else{
       sessionStorage.clear();
       this.router.navigateByUrl("login");
-      Usuario.SetSaludo(`Usuario`);
+     
     }
   }
 

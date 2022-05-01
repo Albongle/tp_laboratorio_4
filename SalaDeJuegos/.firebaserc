@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "tp01-saladejuegos"
+  },
+  "targets": {
+    "tp01-saladejuegos": {
+      "hosting": {
+        "saladejuegos": [
+          "tp01-saladejuegos"
+        ]
+      }
+    }
+  }
+}
