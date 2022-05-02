@@ -16,23 +16,26 @@ export class LoginComponent implements OnInit {
   public router:Router;
   public email:string;
   public password:string;
-  public msgError:boolean;
+  public statusMsjError:boolean;
+  public msjError:string;
+  
 
   constructor(router:Router,private firebaseService:AuthFirebaseService) 
   { 
-    this.msgError = false;
+    this.statusMsjError = false;
     this.router=router;
     this.email="";
     this.password= "";
+    this.msjError="Acceso Denegado";
 
   }
 
   ngOnInit(): void {
 
-    const sesion:any = sessionStorage.getItem("log");
+    const sesion:any = sessionStorage.getItem("login");
     const obj:any = JSON.parse(sesion);
 
-    if(obj && obj.status == "ok" && Usuario.ValidaSesion(obj)){
+    if(obj && obj.status == "ok"){
       this.router.navigateByUrl("home");
     }else{
       sessionStorage.clear();
@@ -47,35 +50,19 @@ export class LoginComponent implements OnInit {
     this.firebaseService.login(usuario)
     .then(res=>{
       if(res==null){
-        this.msgError=true;
+        this.msjError="Acceso Denegado";
+        this.statusMsjError=true;
         setTimeout(() => {
-          this.msgError = false;
+          this.statusMsjError = false;
           this.router.navigateByUrl("login");
-        }, 1000);
+        }, 2000);
       }else{
         console.log(`se ingreso ${res}`);
-        sessionStorage.setItem("log",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
+        sessionStorage.setItem("login",JSON.stringify({usuario:res.user?.email, status:"ok", horaIngreso:moment()}));
         this.router.navigateByUrl("home");
       }
 
     });
-
-
-    // const listaUsuarios:Array<any>= new Array({usuario:"admin",password:"12345"},{usuario:"user",password:"12345"});
-
-    // const usuario:Usuario = new Usuario(this.email, this.password);
-
-    // if(Usuario.Loguear(usuario, listaUsuarios)){
-    //   sessionStorage.setItem("log",JSON.stringify({usuario:this.email, status:"ok", date:moment()}));
-    //   Usuario.SetSaludo(`Bienvenido ${this.email}`);
-    //   this.router.navigateByUrl("home");
-    // }else{
-    //   this.msgError=true;
-    //   setTimeout(() => {
-    //     this.msgError = false;
-    //     this.router.navigateByUrl("login");
-    //   }, 1000);
-    // }
   }
 
   
@@ -84,14 +71,15 @@ export class LoginComponent implements OnInit {
     this.firebaseService.loginConGoogle()
     .then(res=>{
       if(res==null){
-        this.msgError=true;
+        this.statusMsjError=true;
         setTimeout(() => {
-          this.msgError = false;
+          this.msjError="Acceso Denegado";
+          this.statusMsjError = false;
           this.router.navigateByUrl("login");
-        }, 1000);
+        }, 2000);
       }else{
         console.log(`se ingreso con google ${res}`);
-        sessionStorage.setItem("log",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
+        sessionStorage.setItem("login",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
         this.router.navigateByUrl("home");
       }
 
@@ -100,7 +88,23 @@ export class LoginComponent implements OnInit {
   }
   registrarse(){
     const usuario:Usuario = new Usuario(this.email, this.password);
-    this.firebaseService.registrar(usuario).then(res=> `usuario registrado ${res}`);
+    this.firebaseService.registrar(usuario).then(res=> {
+      if(res==null){
+        this.statusMsjError=true;
+        this.msjError="Error al Registrar";
+        setTimeout(() => {
+          this.statusMsjError = false;
+          this.router.navigateByUrl("login");
+        }, 2000);
+
+      }else{
+        console.log(`usuario registrado ${res}`);
+        sessionStorage.setItem("login",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
+        this.router.navigateByUrl("home");
+      }
+      
+    
+    });
   }
 
 

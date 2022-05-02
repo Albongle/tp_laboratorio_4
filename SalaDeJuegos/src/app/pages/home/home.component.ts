@@ -18,10 +18,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const sesion:any = sessionStorage.getItem("log");
+    const sesion:any = sessionStorage.getItem("login");
     const obj:any = JSON.parse(sesion);
 
-    if(obj && obj.status == "ok" && Usuario.ValidaSesion(obj)){
+    if(obj && obj.status == "ok"){
       this.router.navigateByUrl("home");
     }else{
       sessionStorage.clear();

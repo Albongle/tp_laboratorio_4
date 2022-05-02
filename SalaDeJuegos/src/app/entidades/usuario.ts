@@ -10,13 +10,4 @@ export class Usuario {
         
     }
 
-    public static ValidaSesion(obj:any):boolean{
-        const horaActual:moment.Moment= moment();
-        const horaSesion:moment.Moment= moment(obj.date);
-        const diferencia = horaActual.diff(horaSesion);
-        const duracion = moment.duration(diferencia);
-        return duracion.minutes() < 5 ? true : false;
-    }
-
-
 }

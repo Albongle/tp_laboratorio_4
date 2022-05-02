@@ -12,7 +12,7 @@
                 <button class="m-1 btn btn-lg btn-outline-primary btn-block" type="button" (click)="ingresar()">Login</button>
                 <button class="m-1 btn btn-lg btn-danger btn-block" type="button" (click)="ingresarConGoogle()">Login Google</button> 
                 <label> Aun no tienes cuenta? <span class="btn align-item-center badge bg-success text-ligth msj-block" (click)="registrarse()"> Registrate</span></label>
-                <span *ngIf="msgError" id="msj-error" class="mt-5 align-item-center badge bg-warning text-ligth msj-block">Acceso Denegado</span>   
+                <span *ngIf="statusMsjError" class="mt-5 align-item-center badge bg-warning text-ligth msj-block">{{msjError}}</span>   
             </div>          
         </div>
 
