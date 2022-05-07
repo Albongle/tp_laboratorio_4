@@ -13,7 +13,7 @@
             <a routerLink="juegos" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Juegos
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul *ngIf="usuario|async as user" class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" routerLink="juegos/ahorcado">Ahorcado</a></li>
               <li><a class="dropdown-item" routerLink="juegos/preguntados">Preguntados</a></li>
               <!-- <li><hr class="dropdown-divider"></li>
@@ -31,7 +31,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
               <a *ngIf="usuario|async as user" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img *ngIf="user.photoURL else imgenDefault" [src]="user.photoURL" alt="img-usuario" [ngStyle]="estiloImagen"> {{user.email}}
+                <img *ngIf="user.photoURL else imgenDefault" [src]="user.photoURL" alt="img-usuario" [ngStyle]="estiloImagen"> {{user.displayName ? user.displayName : user.email}}
                 <ng-template #imgenDefault><img [ngStyle]="estiloImagen" src="../../../assets/images/usuario.ico"></ng-template>
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

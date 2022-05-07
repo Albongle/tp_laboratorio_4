@@ -7,11 +7,13 @@ import { JuegosComponent } from './pages/juegos/juegos.component';
 import { PreguntadosComponent } from './pages/juegos/preguntados/preguntados.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NosotrosComponent } from './pages/nosotros/nosotros.component';
+import { RegistrarComponent } from './pages/registrar/registrar.component';
 
 const routes: Routes = [
 
   {path:"",redirectTo:"login", pathMatch:"full"},
   {path:"login", component:LoginComponent},
+  {path:"registrar", component:RegistrarComponent},
   {path:"home", component:HomeComponent},
   {path:"juegos", component:JuegosComponent, children:[
     {path:"ahorcado", component:AhorcadoComponent},

@@ -1,0 +1,16 @@
+<div class="card text-center chatContainer">
+    <div class="card-header bg-primary text-white fs-4 fw-bold">
+      CHAT
+    </div>
+    <div class="card-body">
+
+    </div>
+    <form class="card-footer text-muted"  (ngSubmit)="enviarMensaje()">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Ingrese su mensaje" [(ngModel)]="mensaje" [ngModelOptions]="{standalone:true}">
+            <span class="input-group-text" id="basic-addon2" (click)="enviarMensaje()">
+                <img class="enviar-mensaje" [ngStyle]="tamanioImagen" src="https://icons.iconarchive.com/icons/vexels/office/1024/email-send-icon.png" alt="enviar mensaje">
+            </span>
+          </div>
+    </form>
+</div>

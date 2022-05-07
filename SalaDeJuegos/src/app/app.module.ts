@@ -16,6 +16,8 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { RegistrarComponent } from './pages/registrar/registrar.component';
+import { ChatComponent } from './component/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     ErrorComponent,
     HomeComponent,
     AhorcadoComponent,
-    PreguntadosComponent
+    PreguntadosComponent,
+    RegistrarComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

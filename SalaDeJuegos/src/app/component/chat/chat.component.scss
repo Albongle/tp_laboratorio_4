@@ -1,0 +1,14 @@
+.chatContainer{
+    width: 400px;
+    height: 600px;
+    position:fixed;
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+.enviar-mensaje:active{
+    transform: scale(0.9);
+}
+.card-body{
+    padding: 0.5rem;
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/disp/c8dbbe73426833.5c08f56351b26.png");
+}

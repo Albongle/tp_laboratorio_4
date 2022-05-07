@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthFirebaseService } from 'src/app/service/authfirebase.service';
+import { FirebaseService } from 'src/app/service/authfirebase.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,13 +14,14 @@ export class HeaderComponent implements OnInit {
   estiloImagen:object;
   usuario=this.firebaseService.obtenerUsuarioLogueado();
 
-  constructor(private firebaseService:AuthFirebaseService, private router:Router) {
+  constructor(private firebaseService:FirebaseService, private router:Router) {
     this.ancho="32px";
     this.radio="100%";
     this.estiloImagen={'width':this.ancho, 'border-radius':this.radio};
   }
 
   ngOnInit(): void {
+    
   }
   logout(){
     this.firebaseService.logout();

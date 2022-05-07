@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Usuario } from 'src/app/entidades/usuario';
-import { AuthFirebaseService } from 'src/app/service/authfirebase.service';
+import { FirebaseService } from 'src/app/service/authfirebase.service';
 
 
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   public msjError:string;
   
 
-  constructor(router:Router,private firebaseService:AuthFirebaseService) 
+  constructor(router:Router,private firebaseService:FirebaseService) 
   { 
     this.statusMsjError = false;
     this.router=router;
@@ -86,30 +86,6 @@ export class LoginComponent implements OnInit {
     });
 
   }
-  registrarse(){
-    const usuario:Usuario = new Usuario(this.email, this.password);
-    this.firebaseService.registrar(usuario).then(res=> {
-      if(res==null){
-        this.statusMsjError=true;
-        this.msjError="Error al Registrar";
-        setTimeout(() => {
-          this.statusMsjError = false;
-          this.router.navigateByUrl("login");
-        }, 2000);
-
-      }else{
-        console.log(`usuario registrado ${res}`);
-        sessionStorage.setItem("login",JSON.stringify({usuario:res.user?.email, status:"ok", date:moment()}));
-        this.router.navigateByUrl("home");
-      }
-      
-    
-    });
-  }
-
-
-
-
 
 
 

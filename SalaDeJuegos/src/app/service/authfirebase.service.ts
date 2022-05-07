@@ -6,7 +6,7 @@ import { Usuario } from '../entidades/usuario';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthFirebaseService {
+export class FirebaseService {
 
   firestore:AngularFirestore;
   auth:AngularFireAuth;
