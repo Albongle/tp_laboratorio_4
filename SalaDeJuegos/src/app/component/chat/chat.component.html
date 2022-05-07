@@ -1,8 +1,24 @@
-<div class="card text-center chatContainer">
+<div class="open-chat" *ngIf="!mostrarChat && usuarioLogueado">
+    <img src="https://cdn-icons-png.flaticon.com/512/2041/2041005.png" alt="open chat" (click)="cambiarEstadoChat()">
+</div>
+<div class="card text-center chatContainer" *ngIf="usuarioLogueado && mostrarChat">
+
     <div class="card-header bg-primary text-white fs-4 fw-bold">
-      CHAT
+        <p>CHAT</p>
+
     </div>
-    <div class="card-body">
+    <div class="row m-1 justify-content-end">
+        <input class="col-3  m-1 btn btn-danger " type="button" value="Cerrar" (click)="cambiarEstadoChat()"> 
+    </div>
+    <div id="contendor-msjs" class="overflow-hidden card-body">
+
+        <div *ngFor="let mensaje of chat"  class=" m-1">
+            <p [ngClass]="usuarioLogueado.uid === mensaje.id ? formatoMensajeEnviado:formatoMensajeRecibido">
+                {{mensaje.mensaje}}
+                <span [ngClass]="'hora-envio'"> {{mensaje.hora}}</span>
+            </p>
+
+        </div>
 
     </div>
     <form class="card-footer text-muted"  (ngSubmit)="enviarMensaje()">

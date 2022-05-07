@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 export class Usuario {
     public email:string;
     public password:string;
